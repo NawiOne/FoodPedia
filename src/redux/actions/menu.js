@@ -1,9 +1,20 @@
-import {getMenu, getCategory} from '../../utils/http';
+import {
+  getMenu,
+  getCategory,
+  searchMenu,
+  getOrderHistory,
+} from '../../utils/http';
 import {
   getMenuAction,
   getCatAction,
+  searchMenuAction,
+  getOrderUserAction,
+  insertOrderAction,
   byCategoryAction,
   addCartAction,
+  plusQuantityAction,
+  minQuantityAction,
+  cancelCartAction,
 } from '../actions/actionType';
 
 export const getMenuCreator = () => {
@@ -18,6 +29,13 @@ export const getCategoryCreator = () => {
     payload: getCategory(),
   };
 };
+export const searchMenuCreator = (name) => {
+  return {
+    type: searchMenuAction,
+    payload: searchMenu(name),
+  };
+};
+
 export const listByCategoryCreator = (category) => {
   return {
     type: byCategoryAction,
@@ -37,5 +55,37 @@ export const addCartCreator = (id, name, price, img) => {
       price: price,
       picture: img,
     },
+  };
+};
+
+export const plusQuantityCreator = (id) => {
+  return {
+    type: plusQuantityAction,
+    payload: {
+      id_menu: id,
+    },
+  };
+};
+
+export const minQuantityCreator = (id) => {
+  return {
+    type: minQuantityAction,
+    payload: {
+      id_menu: id,
+    },
+  };
+};
+
+export const cancelCartCreator = () => {
+  return {
+    type: cancelCartAction,
+    payload: null,
+  };
+};
+
+export const getOrderUserCreator = () => {
+  return {
+    type: getOrderUserAction,
+    payload: getOrderHistory(),
   };
 };

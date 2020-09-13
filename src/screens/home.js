@@ -14,13 +14,14 @@ import {
   Dimensions,
   FlatList,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
-import {SearchBar} from 'react-native-elements';
 import style from '../style/home';
 
 import Carousel from '../components/carousel';
 import ListFood from '../components/listFood';
 import FoodDetail from '../screens/foodDetail';
+import Search from './search';
 
 const {width} = Dimensions.get('window');
 const height = width * 0.6;
@@ -43,11 +44,13 @@ const HomeMenu = ({navigation}) => {
             <Text style={styleHome.brandName}>FoodPedia</Text>
           </View>
           <View style={styleHome.rightIcon}>
-            <Icon name="search" size={25} style={styleHome.search} />
+            <TouchableOpacity onPress={() => navigation.navigate('search')}>
+              <Icon name="search" size={25} style={styleHome.search} />
+            </TouchableOpacity>
             <Icon name="notifications" size={25} />
           </View>
         </View>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Carousel />
           <ListFood navigation={navigation} />
         </ScrollView>
@@ -76,6 +79,7 @@ const Home = () => {
           headerTitle: menu.nameCategory.name_category,
         }}
       />
+      <Stack.Screen name="search" component={Search} />
     </Stack.Navigator>
   );
 };

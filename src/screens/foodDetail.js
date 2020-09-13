@@ -14,7 +14,13 @@ const DetailFood = ({navigation}) => {
     const food = menu.data.filter((item) => {
         return item.name_category === menu.nameCategory.name_category;
     });
-    console.log(menu.cart)
+    const cartId = menu.cart.map((item) =>{
+        return item;
+    });
+const check = menu.data.filter((item) =>{
+    return item.id_menu === cartId.id_menu;
+});
+    console.log('ini adlah cartId', cartId);
     return (
         <View style={style.container}>
             <View style={style.top}>
@@ -24,7 +30,13 @@ const DetailFood = ({navigation}) => {
             {   food.length ?
                 food.map((item, index) =>{
                 return (
-                    <View style={style.list} key={index}>
+                    <TouchableOpacity press style={style.list} key={index} onPress={() =>
+                    dispatch(addCartCreator(
+                        item.id_menu,
+                                  item.name,
+                                  item.price,
+                                  item.picture,
+                    ))}>
                         <Image source={{uri: item.picture}} style={style.listPic} />
                         <View style={style.desc}>
                             <Text>{item.name}</Text>
@@ -42,7 +54,7 @@ const DetailFood = ({navigation}) => {
                         }}>
                             <Text style={style.cartText}>Add to cart</Text>
                         </TouchableOpacity>
-                     </View>
+                     </TouchableOpacity>
                 );
             })
             : <View style={style.empty}>

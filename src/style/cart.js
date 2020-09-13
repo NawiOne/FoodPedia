@@ -33,12 +33,15 @@ export default StyleSheet.create({
     borderRadius: 6,
   },
   trash: {
-    height: '25%',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    height: '50%',
+    width: 35,
   },
   title: {
+    marginTop: 10,
     height: '20%',
-    padding: 20,
+    padding: 15,
   },
   shopBag: {
     fontSize: 25,
@@ -46,9 +49,10 @@ export default StyleSheet.create({
   },
   qty: {
     fontSize: 18,
+    fontWeight: 'bold',
   },
   listContainer: {
-    padding: 20,
+    padding: 15,
   },
   list: {
     backgroundColor: 'white',
@@ -80,8 +84,84 @@ export default StyleSheet.create({
     alignSelf: 'flex-start',
     width: '35%',
   },
+  cart: {
+    alignSelf: 'flex-end',
+    borderRadius: 8,
+    padding: 8,
+  },
   cartText: {
-    color: 'black',
-    fontSize: 11,
+    color: '#229954',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  handleQty: {
+    marginTop: 10,
+    justifyContent: 'space-between',
+    width: '80%',
+    flexDirection: 'row',
+  },
+  minus: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 30,
+    height: 30,
+    backgroundColor: '#7DCEA0',
+    borderRadius: 50,
+  },
+  plus: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 30,
+    height: 30,
+    backgroundColor: '#7DCEA0',
+    borderRadius: 50,
+  },
+  numQty: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  nameFood: {
+    fontWeight: 'bold',
+  },
+  checkOut: {
+    borderColor: '#BDC3C7',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 20,
+    paddingBottom: 50,
+  },
+  totalText: {
+    alignSelf: 'flex-end',
+    padding: 15,
+    alignItems: 'flex-start',
+    width: '40%',
+    height: 150,
+  },
+  totalNum: {
+    padding: 15,
+    alignItems: 'flex-end',
+    width: '50%',
+    height: 100,
+  },
+  text: {
+    marginBottom: 6,
+    fontWeight: 'bold',
+  },
+  total: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#229954',
+  },
+  button: {
+    marginTop: 30,
+    padding: 10,
+    backgroundColor: 'black',
+    marginBottom: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  btn: {
+    color: 'white',
   },
 });

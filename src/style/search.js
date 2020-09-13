@@ -6,11 +6,12 @@ export default StyleSheet.create({
     backgroundColor: '#EAF2F8',
   },
   searchBar: {
+    marginTop: 20,
     flexDirection: 'row',
     paddingLeft: 10,
     alignItems: 'center',
     alignSelf: 'center',
-    width: '100%',
+    width: '95%',
     backgroundColor: '#CACFD2',
     height: 40,
     borderRadius: 10,
@@ -18,21 +19,12 @@ export default StyleSheet.create({
   search: {
     width: '60%',
   },
-  top: {
-    width: '100%',
-    height: '26%',
-    backgroundColor: 'red',
-  },
-  topImg: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
   listCont: {
     alignSelf: 'center',
     width: '95%',
     marginTop: 10,
     backgroundColor: '#EAF2F8',
+    marginBottom: 80,
   },
   list: {
     backgroundColor: 'white',
@@ -66,7 +58,7 @@ export default StyleSheet.create({
   },
   cart: {
     alignSelf: 'flex-end',
-    backgroundColor: '#7DCEA0',
+    backgroundColor: '#FA7D21',
     borderRadius: 8,
     padding: 8,
   },

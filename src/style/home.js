@@ -1,7 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
 const {width} = Dimensions.get('window');
-const height = width * 0.52;
+const height = width * 0.4;
 
 export default StyleSheet.create({
   container: {
@@ -26,11 +26,12 @@ export default StyleSheet.create({
     borderRadius: 6,
   },
   carousel: {
-    width,
+    width: '100%',
     height,
   },
 
   carouselImg: {
+    width: '100%',
     resizeMode: 'cover',
   },
   indic: {
@@ -47,12 +48,12 @@ export default StyleSheet.create({
   },
   dotActive: {
     margin: 2,
-    color: 'black',
+    color: 'white',
     fontSize: 18,
   },
   listFood: {
     marginTop: 20,
-    width,
+    width: '100%',
     padding: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
