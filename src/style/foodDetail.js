@@ -20,7 +20,7 @@ export default StyleSheet.create({
   },
   top: {
     width: '100%',
-    height: '26%',
+    height: '20%',
     backgroundColor: 'red',
   },
   topImg: {
@@ -79,6 +79,7 @@ export default StyleSheet.create({
   cartText: {
     color: 'black',
     fontSize: 11,
+    fontWeight: 'bold',
   },
   empty: {
     marginTop: 40,

@@ -40,7 +40,7 @@ export default StyleSheet.create({
   },
   title: {
     marginTop: 10,
-    height: '20%',
+    height: '15%',
     padding: 15,
   },
   shopBag: {
@@ -163,5 +163,12 @@ export default StyleSheet.create({
   },
   btn: {
     color: 'white',
+  },
+  success: {
+    alignSelf: 'center',
+    fontSize: 20,
+  },
+  wait: {
+    alignSelf: 'center',
   },
 });

@@ -2,7 +2,8 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {getMenuCreator, addCartCreator} from '../redux/actions/menu';
-import {Text, View, Image, TextInput, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import {Text, View, Image, ScrollView, TouchableOpacity, CheckBox} from 'react-native';
+import Order from '../components/order';
 import style from '../style/foodDetail';
 
 const DetailFood = ({navigation}) => {
@@ -52,7 +53,7 @@ const check = menu.data.filter((item) =>{
                                 ),
                               );
                         }}>
-                            <Text style={style.cartText}>Add to cart</Text>
+                            <Text style={style.cartText}>Add +</Text>
                         </TouchableOpacity>
                      </TouchableOpacity>
                 );
@@ -63,7 +64,7 @@ const check = menu.data.filter((item) =>{
 
             }
             </ScrollView>
-
+            {menu.cart.length ? <Order navigation={navigation}/> : null}
         </View>
     );
 };

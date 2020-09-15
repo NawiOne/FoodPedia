@@ -18,3 +18,17 @@ export const getOrderHistory = () => {
   const url = 'http://54.198.163.118:8000/orderuser';
   return Axios.get(url);
 };
+export const insertOrder = (date, name, orders, amount) => {
+  const data = {
+    date: date,
+    name: name,
+    orders: orders,
+    amount: amount,
+  };
+  const url = 'http://54.198.163.118:8000/orderuser';
+  return Axios.post(url, data);
+};
+export const deleteOrder = (id) => {
+  const url = `http://54.198.163.118:8000/orderuser?id=${id}`;
+  return Axios.delete(url);
+};

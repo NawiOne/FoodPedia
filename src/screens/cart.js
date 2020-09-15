@@ -2,12 +2,27 @@
 import React, {useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Text, View, Image, ImageBackground, TextInput, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, View, Image, ImageBackground, TextInput, TouchableOpacity, ScrollView, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {plusQuantityCreator, minQuantityCreator, cancelCartCreator} from '../redux/actions/menu';
+import {plusQuantityCreator, minQuantityCreator, cancelCartCreator, insertOrderCreator} from '../redux/actions/menu';
 import style from '../style/cart';
-import background from '../image/berry.jpg';
-import logo from '../image/spoon.png';
+
+
+let monthName = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+const ex = new Date();
+const date = ex.getDate();
+const month = monthName[ex.getMonth()];
+const year = ex.getFullYear();
+const fullYear = `${date}-${month}-${year}`;
+
+
+const getDate = new Date().getDate().toString();
+const getMil = new Date().getMilliseconds().toString();
+const id = getDate + getMil;
+const name = 'waluyo';
 
 const Cart = ({navigation}) => {
     const dispatch = useDispatch();
@@ -19,8 +34,10 @@ const Cart = ({navigation}) => {
         return total + index;
     }, 0);
     const plusDelivery = totalPrice + 15000;
-
-
+    const orders = menu.cart.map((item) => {
+        return item.name;
+    });
+    console.log('ini di cart');
     return (
         <View style={style.container}>
             <View style={style.header}>
@@ -33,12 +50,12 @@ const Cart = ({navigation}) => {
                 <TouchableOpacity style={style.trash} onPress={() => {
                     dispatch(cancelCartCreator());
                 }}>
-                {menu.cart.length ? <Icon name="trash-bin" size={23} color="black"/> : <Icon name="trash-bin-sharp" size={23} color="black"/>
-                }
+                    {menu.cart.length ? <Icon name="trash-bin" size={23} color="black" /> : <Icon name="trash-bin-sharp" size={23} color="black" />
+                    }
                 </TouchableOpacity>
             </View>
             <View style={style.title}>
-                <Text style={style.shopBag}>MY shopping bag</Text>
+                <Text style={style.shopBag}>My order list</Text>
                 <Text style={style.qty}>{menu.cart.length} items add</Text>
             </View>
             <ScrollView style={style.listContainer} showsVerticalScrollIndicator={false}>
@@ -50,25 +67,25 @@ const Cart = ({navigation}) => {
                                 <View style={style.desc}>
                                     <Text style={style.nameFood}>{item.name}</Text>
                                     <View style={style.handleQty}>
-                                        {item.quantity !== 1 ? 
+                                        {item.quantity !== 1 ?
                                             <TouchableOpacity style={style.minus} onPress={() =>
                                                 dispatch(minQuantityCreator(item.id_menu))}>
                                                 <Text>-</Text>
                                             </TouchableOpacity>
                                             : <TouchableOpacity style={style.minus} onPress={() =>
                                                 dispatch(minQuantityCreator(item.id_menu))}>
-                                                <Fork name= "trash-can" size={15} color="black"/>
+                                                <Fork name="trash-can" size={15} color="black" />
                                             </TouchableOpacity>
-                                    }
+                                        }
                                         <View style={style.numQty}><Text>{item.quantity}</Text></View>
                                         <TouchableOpacity style={style.plus} onPress={() => {
                                             dispatch(plusQuantityCreator(item.id_menu));
                                         }}><Text>+</Text></TouchableOpacity>
                                     </View>
                                 </View>
-                                <TouchableOpacity style={style.cart} >
+                                <View style={style.cart} >
                                     <Text style={style.cartText}>Rp. {item.price * item.quantity}</Text>
-                                </TouchableOpacity>
+                                </View>
                             </View>
                         );
                     })
@@ -80,9 +97,17 @@ const Cart = ({navigation}) => {
                                 <Text style={style.text}>Total</Text>
                                 <Text style={style.text}>Delivery</Text>
                                 <Text style={style.total}>Total</Text>
-                                <View style={style.button}>
+                                <TouchableOpacity style={style.button} onPress={() => {
+                                    dispatch(cancelCartCreator());
+                                    dispatch(insertOrderCreator(
+                                        fullYear,
+                                        name,
+                                        orders.toString(),
+                                        plusDelivery,
+                                    ));
+                                }}>
                                     <Text style={style.btn}>Checkout</Text>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={style.totalNum}>
                                 <Text style={style.text}>Rp. {totalPrice}</Text>
@@ -90,10 +115,13 @@ const Cart = ({navigation}) => {
                                 <Text style={style.total}>Rp. {plusDelivery}</Text>
                             </View>
                         </View>
-                        : null
+                        :  menu.isPending ?
+                        <View style={style.wait}>
+                           <Text>Please wait...</Text>
+                           <ActivityIndicator color="black" size="large" />
+                       </View>
+                       : null
                 }
-
-
             </ScrollView>
         </View>
     );

@@ -46,4 +46,28 @@ export default StyleSheet.create({
     marginLeft: 25,
     fontWeight: 'bold',
   },
+  promp: {
+    width: '70%',
+    height: 140,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  btn: {
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '90%',
+    flexDirection: 'row',
+  },
+  yes: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    height: 40,
+    width: 70,
+    padding: 8,
+    backgroundColor: 'black',
+  },
+  str: {
+    color: 'white',
+  },
 });

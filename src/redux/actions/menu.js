@@ -3,6 +3,8 @@ import {
   getCategory,
   searchMenu,
   getOrderHistory,
+  insertOrder,
+  deleteOrder,
 } from '../../utils/http';
 import {
   getMenuAction,
@@ -15,6 +17,8 @@ import {
   plusQuantityAction,
   minQuantityAction,
   cancelCartAction,
+  deleteOrderAction,
+  clearAction,
 } from '../actions/actionType';
 
 export const getMenuCreator = () => {
@@ -87,5 +91,26 @@ export const getOrderUserCreator = () => {
   return {
     type: getOrderUserAction,
     payload: getOrderHistory(),
+  };
+};
+
+export const insertOrderCreator = (date, name, orders, amount) => {
+  return {
+    type: insertOrderAction,
+    payload: insertOrder(date, name, orders, amount),
+  };
+};
+
+export const deleteOrderCreator = (id) => {
+  return {
+    type: deleteOrderAction,
+    payload: deleteOrder(id),
+  };
+};
+
+export const clearCreator = () => {
+  return {
+    type: clearAction,
+    payload: null,
   };
 };

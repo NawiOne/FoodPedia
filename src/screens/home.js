@@ -10,18 +10,16 @@ import {
   View,
   ScrollView,
   Text,
-  Image,
-  Dimensions,
-  FlatList,
-  StyleSheet,
   TouchableOpacity,
+  // Image,
+  Dimensions,
+  // FlatList,
+  StyleSheet,
 } from 'react-native';
 import style from '../style/home';
 
 import Carousel from '../components/carousel';
 import ListFood from '../components/listFood';
-import FoodDetail from '../screens/foodDetail';
-import Search from './search';
 
 const {width} = Dimensions.get('window');
 const height = width * 0.6;
@@ -59,31 +57,7 @@ const HomeMenu = ({navigation}) => {
   );
 };
 
-const Stack = createStackNavigator();
-
-const Home = () => {
-  const {menu} = useSelector((state) => state);
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="HomeMenu"
-        component={HomeMenu}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="FoodDetail"
-        component={FoodDetail}
-        options={{
-          headerTitle: menu.nameCategory.name_category,
-        }}
-      />
-      <Stack.Screen name="search" component={Search} />
-    </Stack.Navigator>
-  );
-};
-export default Home;
+export default HomeMenu;
 
 const styleHome = StyleSheet.create({
   logoName: {

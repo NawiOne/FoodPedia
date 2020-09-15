@@ -5,6 +5,20 @@ export default StyleSheet.create({
     // padding: 10,
     backgroundColor: '#EAF2F8',
   },
+  topTab: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    paddingLeft: 15,
+    padding: 10,
+    height: 50,
+  },
+  icon: {
+    marginRight: 40,
+  },
+  text: {
+    fontSize: 20,
+  },
   searchBar: {
     marginTop: 20,
     flexDirection: 'row',
@@ -58,7 +72,7 @@ export default StyleSheet.create({
   },
   cart: {
     alignSelf: 'flex-end',
-    backgroundColor: '#FA7D21',
+    backgroundColor: '#7DCEA0',
     borderRadius: 8,
     padding: 8,
   },

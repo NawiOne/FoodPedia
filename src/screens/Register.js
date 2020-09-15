@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import style from '../style/login';
 import background from '../image/berry.jpg';
@@ -42,7 +43,7 @@ const Register = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={style.regis}
-              onPress={() => navigation.navigate('Login')}>
+              onPress={() => navigation.navigate('login')}>
               <Text style={style.loginRegis}>Have an account? Login</Text>
             </TouchableOpacity>
           </View>

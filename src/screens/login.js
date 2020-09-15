@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {Text, View, Image, ImageBackground, TextInput, TouchableOpacity} from 'react-native';
+import {Text, View, ScrollView, Image, ImageBackground, TextInput, TouchableOpacity} from 'react-native';
 import style from '../style/login';
 import background from '../image/berry.jpg';
 import logo from '../image/spoon.png';
@@ -24,12 +24,13 @@ const Login = ({ navigation }) => {
                             secureTextEntry={true}
                             style={style.input} />
                         <TouchableOpacity
+                            onPress= {() => navigation.navigate('bottomtab')}
                             style={style.btnLogin}>
                            <Text>LOGIN</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={style.regis}
-                            onPress={() => navigation.navigate('Register')} >
+                            onPress={() => navigation.navigate('register')} >
                             <Text style={style.loginRegis}>Don't have an account? Register</Text>
                         </TouchableOpacity>
                     </View>

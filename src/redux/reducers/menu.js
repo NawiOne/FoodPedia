@@ -3,6 +3,9 @@ import {
   getCatAction,
   searchMenuAction,
   byCategoryAction,
+  getOrderUserAction,
+  insertOrderAction,
+  deleteOrderAction,
   pending,
   rejected,
   fulfilled,
@@ -10,10 +13,13 @@ import {
   plusQuantityAction,
   minQuantityAction,
   cancelCartAction,
+  clearAction,
 } from '../actions/actionType';
 
 const initalstate = {
+  userOrder: [],
   category: [],
+  orderStatus: [],
   data: [],
   dataSearch: [],
   nameCategory: {},
@@ -101,6 +107,11 @@ const menu = (prevstate = initalstate, {type, payload}) => {
         dataSearch: payload.data.data,
         isPending: false,
       };
+    case clearAction:
+      return {
+        ...prevstate,
+        dataSearch: [],
+      }
 
     // add cart
     case addCartAction:
@@ -160,6 +171,52 @@ const menu = (prevstate = initalstate, {type, payload}) => {
           cart: newCartMin,
         };
       }
+    // history of user order
+    case getOrderUserAction + pending:
+      return {
+        ...prevstate,
+        isPending: true,
+      };
+    case getOrderUserAction + rejected:
+      return {
+        ...prevstate,
+        error: payload,
+        isRejected: true,
+        isPending: false,
+      };
+    case getOrderUserAction + fulfilled:
+      return {
+        ...prevstate,
+        isfulfilled: true,
+        userOrder: payload.data.data,
+        isPending: false,
+      };
+
+    case insertOrderAction + pending:
+      return {
+        ...prevstate,
+        isPending: true,
+      };
+    case insertOrderAction + rejected:
+      return {
+        ...prevstate,
+        isRejected: true,
+        error: payload,
+        isPending: false,
+      };
+    case insertOrderAction + fulfilled:
+      return {
+        ...prevstate,
+        orderStatus: payload,
+        isfulfilled: true,
+        isPending: false,
+      };
+    // delete order
+    case deleteOrderAction + fulfilled:
+      return {
+        ...prevstate,
+      };
+
     default:
       return prevstate;
   }
