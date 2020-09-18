@@ -2,10 +2,11 @@
 import React, {useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Text, View, Image, ImageBackground, TextInput, TouchableOpacity, ScrollView, ActivityIndicator} from 'react-native';
+import {Text, View, Image, ImageBackground, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Button} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {plusQuantityCreator, minQuantityCreator, cancelCartCreator, insertOrderCreator} from '../redux/actions/menu';
 import style from '../style/cart';
+import img from '../image/oops.jpg';
 
 
 let monthName = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -37,20 +38,20 @@ const Cart = ({navigation}) => {
     const orders = menu.cart.map((item) => {
         return item.name;
     });
-    console.log('ini di cart');
+  
     return (
         <View style={style.container}>
             <View style={style.header}>
                 <View style={style.logoName}>
                     <View style={style.logo}>
-                        <Fork name="food-fork-drink" size={15} color="white" />
+                        <Fork name="food-fork-drink" size={15} color="black" />
                     </View>
                     <Text style={style.brandName}>FoodPedia</Text>
                 </View>
                 <TouchableOpacity style={style.trash} onPress={() => {
                     dispatch(cancelCartCreator());
                 }}>
-                    {menu.cart.length ? <Icon name="trash-bin" size={23} color="black" /> : <Icon name="trash-bin-sharp" size={23} color="black" />
+                    {menu.cart.length ? <Icon name="trash-bin" size={23} color="white" /> : <Icon name="trash-bin-sharp" size={23} color="white" />
                     }
                 </TouchableOpacity>
             </View>
@@ -115,12 +116,21 @@ const Cart = ({navigation}) => {
                                 <Text style={style.total}>Rp. {plusDelivery}</Text>
                             </View>
                         </View>
-                        :  menu.isPending ?
-                        <View style={style.wait}>
-                           <Text>Please wait...</Text>
-                           <ActivityIndicator color="black" size="large" />
-                       </View>
-                       : null
+                        : menu.isPending ?
+                            <View style={style.wait}>
+                                <Text>Please wait...</Text>
+                                <ActivityIndicator color="black" size="large" />
+                            </View>
+                            : <View style={style.empty}>
+                                <Image source={img} style={style.imgEmpty} />
+                                <Text style={{marginTop: 2, marginBottom: 10,}}>Oops!, your cart is empty</Text>
+                                <Button
+                                    title="Choose your menu"
+                                    color="#48C9B0"
+                                    onPress={() => navigation.navigate('home')}
+                                    style={style.emptyBtn}
+                                />
+                            </View>
                 }
             </ScrollView>
         </View>

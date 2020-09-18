@@ -3,9 +3,10 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EAF2F8',
+    // backgroundColor: '#EAF2F8',
   },
   header: {
+    backgroundColor: '#212F3D',
     alignItems: 'center',
     paddingTop: 10,
     paddingLeft: 10,
@@ -21,11 +22,13 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   brandName: {
+    color: 'white',
     marginLeft: 5,
+    fontWeight: 'bold',
   },
   logo: {
     width: 35,
-    backgroundColor: '#1C2833',
+    backgroundColor: 'white',
     height: 35,
     padding: 5,
     justifyContent: 'center',
@@ -39,20 +42,25 @@ export default StyleSheet.create({
     width: 35,
   },
   title: {
-    marginTop: 10,
+    backgroundColor: '#212F3D',
+    // backgroundColor: 'white',
+    // marginTop: 10,
     height: '15%',
     padding: 15,
   },
   shopBag: {
+    color: 'white',
     fontSize: 25,
     fontWeight: 'bold',
   },
   qty: {
+    color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
   },
   listContainer: {
     padding: 15,
+    backgroundColor: 'white',
   },
   list: {
     backgroundColor: 'white',
@@ -127,7 +135,7 @@ export default StyleSheet.create({
     borderColor: '#BDC3C7',
     borderTopWidth: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginTop: 20,
     paddingBottom: 50,
   },
@@ -170,5 +178,15 @@ export default StyleSheet.create({
   },
   wait: {
     alignSelf: 'center',
+  },
+  empty: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+  },
+  imgEmpty: {
+    width: 120,
+    height: 120,
+    resizeMode: 'cover',
   },
 });

@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import {Overlay} from 'react-native-elements';
+import Icon2 from 'react-native-vector-icons/AntDesign';
 import {
   addCartCreator,
   searchMenuCreator,
   clearCreator,
+  deleteMenuCreator,
 } from '../redux/actions/menu';
 import {
   Text,
@@ -21,8 +24,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const Search = ({navigation}) => {
   const [name, setName] = useState('');
   const dispatch = useDispatch();
-  const {menu} = useSelector((state) => state);
-  console.log(menu.dataSearch.msg);
+  const {menu, auth} = useSelector((state) => state);
+  console.log(menu);
+
+  const [visible, setVisible] = useState(false);
+  const [id, setId] = useState(id);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   return (
     <>
@@ -46,7 +56,6 @@ const Search = ({navigation}) => {
             onChangeText={(text) => setName(text)}
             onSubmitEditing={() => {
               dispatch(searchMenuCreator(name));
-              setName(null);
             }}
           />
         </View>
@@ -58,7 +67,7 @@ const Search = ({navigation}) => {
           ) : menu.dataSearch.msg === undefined ? (
             menu.dataSearch.map((item, index) => {
               return (
-                <TouchableOpacity
+                <View
                   press
                   style={style.list}
                   key={index}
@@ -77,21 +86,38 @@ const Search = ({navigation}) => {
                     <Text>{item.name}</Text>
                     <Text>Rp. {item.price}</Text>
                   </View>
-                  <TouchableOpacity
-                    style={style.cart}
-                    onPress={() => {
-                      dispatch(
-                        addCartCreator(
-                          item.id_menu,
-                          item.name,
-                          item.price,
-                          item.picture,
-                        ),
-                      );
-                    }}>
-                    <Text style={style.cartText}>Add to cart</Text>
-                  </TouchableOpacity>
-                </TouchableOpacity>
+                  {auth.isAdmin ? (
+                    <View style={style.editDel}>
+                      <TouchableOpacity style={style.cartAdmin}>
+                        <Icon2 name="edit" size={16} />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={style.cartAdmin}
+                        onPress={() => {
+                          setId(item.id_menu);
+                          console.log(id);
+                          toggleOverlay();
+                        }}>
+                        <Icon2 name="delete" size={16} />
+                      </TouchableOpacity>
+                    </View>
+                  ) : (
+                    <TouchableOpacity
+                      style={style.cart}
+                      onPress={() => {
+                        dispatch(
+                          addCartCreator(
+                            item.id_menu,
+                            item.name,
+                            item.price,
+                            item.picture,
+                          ),
+                        );
+                      }}>
+                      <Text style={style.cartText}>Add +</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               );
             })
           ) : (
@@ -102,6 +128,28 @@ const Search = ({navigation}) => {
         </ScrollView>
       </View>
       {menu.cart.length ? <Order navigation={navigation} /> : null}
+      <Overlay
+        isVisible={visible}
+        onBackdropPress={toggleOverlay}
+        overlayStyle={style.promp}>
+        <View style={style.overlayCont}>
+          <Text>Delete ?</Text>
+          <View style={style.btn}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(deleteMenuCreator(id));
+                dispatch(searchMenuCreator(name));
+                toggleOverlay();
+              }}
+              style={style.yes}>
+              <Text style={style.str}>yes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={style.no} onPress={() => toggleOverlay()}>
+              <Text style={style.strno}>no</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
     </>
   );
 };

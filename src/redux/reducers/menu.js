@@ -14,10 +14,15 @@ import {
   minQuantityAction,
   cancelCartAction,
   clearAction,
+  deleteMenuAction,
+  editMenuAction,
+  editDataMenuAction,
+  changePending,
 } from '../actions/actionType';
 
 const initalstate = {
   userOrder: [],
+  editData: {},
   category: [],
   orderStatus: [],
   data: [],
@@ -27,6 +32,11 @@ const initalstate = {
   insertStatus: [],
   history: [],
   error: '',
+  auth: {
+    isLogin: true,
+    level: 1,
+  },
+  pendingEdit: null,
   isPending: false,
   isfulfilled: false,
   isRejected: false,
@@ -111,7 +121,12 @@ const menu = (prevstate = initalstate, {type, payload}) => {
       return {
         ...prevstate,
         dataSearch: [],
-      }
+      };
+    //  delete menu
+    case deleteMenuAction + fulfilled:
+      return {
+        ...prevstate,
+      };
 
     // add cart
     case addCartAction:
@@ -216,7 +231,44 @@ const menu = (prevstate = initalstate, {type, payload}) => {
       return {
         ...prevstate,
       };
-
+    // edit data
+    case editMenuAction:
+      if (payload.id_menu == prevstate.id_menu) {
+        return {
+          ...prevstate,
+          editData: {...payload},
+        };
+      } else {
+        return {
+          ...prevstate,
+          editData: {...payload},
+        };
+      }
+    case editDataMenuAction + pending:
+      return {
+        ...prevstate,
+        pendingEdit: true,
+        isfulfilled: false,
+      };
+    case editDataMenuAction + rejected:
+      return {
+        ...prevstate,
+        error: payload,
+        isRejected: true,
+        pendingEdit: false,
+        isfulfilled: false,
+      };
+    case editDataMenuAction + fulfilled:
+      return {
+        ...prevstate,
+        isfulfilled: true,
+        pendingEdit: false,
+      };
+    case changePending:
+      return {
+        ...prevstate,
+        pendingEdit: null,
+      };
     default:
       return prevstate;
   }

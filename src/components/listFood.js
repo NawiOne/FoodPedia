@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import style from '../style/home';
+import img from '../image/appetizers.jpg';
 
 const ListFood = ({navigation}) => {
   const dispatch = useDispatch();
@@ -16,13 +17,33 @@ const ListFood = ({navigation}) => {
   return (
     <>
       <TouchableOpacity style={style.listFood}>
+        {menu.category.length ? (
+          <TouchableOpacity
+            style={style.food}
+            onPress={() => navigation.navigate('allmenu')}>
+            <Image source={img} style={style.foodImg} />
+            <Text style={style.nameFood}>All Menu</Text>
+          </TouchableOpacity>
+        ) : null}
+
         {menu.isPending ? (
-          <View>
+          <View style={style.loading}>
             <Text>Loading</Text>
             <ActivityIndicator size="large" color="black" />
           </View>
         ) : menu.category.length ? (
           menu.category.map((item, index) => {
+            <TouchableOpacity
+              style={style.food}
+              onPress={() => {
+                navigation.navigate('FoodDetail');
+              }}>
+              <Image
+                source={{uri: item.image_category}}
+                style={style.foodImg}
+              />
+              <Text style={style.nameFood}>{item.name_category}</Text>
+            </TouchableOpacity>;
             return (
               <TouchableOpacity
                 key={index}

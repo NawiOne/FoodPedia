@@ -5,6 +5,8 @@ import {
   getOrderHistory,
   insertOrder,
   deleteOrder,
+  deleteMenu,
+  editMenu,
 } from '../../utils/http';
 import {
   getMenuAction,
@@ -19,6 +21,10 @@ import {
   cancelCartAction,
   deleteOrderAction,
   clearAction,
+  deleteMenuAction,
+  editMenuAction,
+  editDataMenuAction,
+  changePending,
 } from '../actions/actionType';
 
 export const getMenuCreator = () => {
@@ -114,3 +120,44 @@ export const clearCreator = () => {
     payload: null,
   };
 };
+
+export const deleteMenuCreator = (id) => {
+  return {
+    type: deleteMenuAction,
+    payload: deleteMenu(id),
+  };
+};
+
+export const editMenuCreator = (
+  id,
+  name,
+  price,
+  picture,
+  category,
+  id_category,
+) => {
+  return {
+    type: editMenuAction,
+    payload: {
+      id_menu: id,
+      name: name,
+      price: price,
+      picture: picture,
+      name_category: category,
+      id_category: id_category,
+    },
+  };
+};
+
+export const editDataCreator = (name, image, price, id_category, id_menu) => {
+  return {
+    type: editDataMenuAction,
+    payload: editMenu(name, image, price, id_category, id_menu),
+  };
+};
+
+export const changePendingCreator = () => {
+  return {
+    type: changePending,
+  }
+}

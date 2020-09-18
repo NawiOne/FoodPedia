@@ -11,9 +11,7 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  // Image,
   Dimensions,
-  // FlatList,
   StyleSheet,
 } from 'react-native';
 import style from '../style/home';

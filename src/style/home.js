@@ -55,9 +55,11 @@ export default StyleSheet.create({
     marginTop: 20,
     width: '100%',
     padding: 5,
+    marginLeft: 5,
+    marginRight: 'auto',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'flex-start',
   },
   food: {
     width: '43%',
@@ -74,5 +76,10 @@ export default StyleSheet.create({
   nameFood: {
     fontWeight: 'bold',
     fontFamily: 'roboto',
+  },
+  loading: {
+    position: 'absolute',
+    left: '42%',
+    top: -10,
   },
 });

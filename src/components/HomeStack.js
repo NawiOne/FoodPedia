@@ -1,4 +1,5 @@
 import React from 'react';
+import {Text} from 'react-native';
 import 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,19 +8,20 @@ import {createStackNavigator} from '@react-navigation/stack';
 import FoodDetail from '../screens/foodDetail';
 import Search from '../screens/search';
 import HomeMenu from '../screens/home';
-import Register from '../screens/Register';
-import Login from '../screens/login';
 import Auth from '../components/auth';
 
 import Cart from '../screens/cart';
 import User from '../screens/user';
+import AddMenu from '../screens/addMenu';
+import EditMenu from '../screens/edit';
+import AllMenu from '../screens/allMenu'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const BottomTab = () => {
-  const {menu} = useSelector((state) => state);
+  const {menu, auth} = useSelector((state) => state);
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -37,17 +39,43 @@ const BottomTab = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="cart"
-        component={Cart}
-        options={{
-          tabBarLabel: 'Order',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="shopping-cart" color={color} size={size} />
-          ),
-          tabBarBadge: menu.cart.length,
-        }}
-      />
+      {auth.isAdmin === false ? null : (
+        <Tab.Screen
+          name="addmenu"
+          component={AddMenu}
+          options={{
+            tabBarLabel: 'Add',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="plus-square-o" color={color} size={size} />
+            ),
+          }}
+        />
+      )}
+      {auth.isAdmin ? null : menu.cart.length ? (
+        <Tab.Screen
+          name="cart"
+          component={Cart}
+          options={{
+            tabBarLabel: 'Order',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="shopping-cart" color={color} size={size} />
+            ),
+            tabBarBadge: menu.cart.length,
+          }}
+        />
+      ) : (
+        <Tab.Screen
+          name="cart"
+          component={Cart}
+          options={{
+            tabBarLabel: 'Order',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="shopping-cart" color={color} size={size} />
+            ),
+          }}
+        />
+      )}
+
       <Tab.Screen
         name="user"
         component={User}
@@ -65,38 +93,54 @@ const BottomTab = () => {
 const HomeStack = () => {
   const {menu} = useSelector((state) => state);
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="bottomtab"
-          component={BottomTab}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="FoodDetail"
-          component={FoodDetail}
-          options={{
-            headerTitle: menu.nameCategory.name_category,
-          }}
-        />
-        <Stack.Screen
-          name="search"
-          component={Search}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="auth"
-          component={Auth}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="auth"
+            component={Auth}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="FoodDetail"
+            component={FoodDetail}
+            options={{
+              headerTitle: menu.nameCategory.name_category,
+            }}
+          />
+          <Stack.Screen
+            name="search"
+            component={Search}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="edit"
+            component={EditMenu}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="allmenu"
+            component={AllMenu}
+            options={{
+              headerTitle: 'Menu',
+            }}
+          />
+          <Stack.Screen
+            name="bottomtab"
+            component={BottomTab}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
 

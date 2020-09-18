@@ -70,7 +70,18 @@ export default StyleSheet.create({
     alignSelf: 'flex-start',
     width: '35%',
   },
+  editDel: {
+    flexDirection: 'row',
+    // backgroundColor: 'red',
+  },
   cart: {
+    alignSelf: 'flex-end',
+    backgroundColor: '#7DCEA0',
+    borderRadius: 8,
+    padding: 8,
+  },
+  cartAdmin: {
+    marginRight: 5,
     alignSelf: 'flex-end',
     backgroundColor: '#7DCEA0',
     borderRadius: 8,
@@ -90,4 +101,48 @@ export default StyleSheet.create({
     marginTop: 40,
     alignItems: 'center',
   },
+  overlayCont: {
+    top: -10,
+    alignItems: 'center',
+    // backgroundColor: 'red',
+  },
+  promp: {
+    width: '70%',
+    height: 140,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  btn: {
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '90%',
+    flexDirection: 'row',
+  },
+  yes: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    height: 40,
+    width: 70,
+    padding: 8,
+    backgroundColor: 'black',
+  },
+  no: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    height: 40,
+    width: 70,
+    padding: 8,
+    backgroundColor: '#CACFD2',
+  },
+  str: {
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  strno: {
+    color: 'black',
+    fontWeight: 'bold',
+  }
 });

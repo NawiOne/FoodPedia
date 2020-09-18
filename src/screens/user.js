@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {logoutCreator} from '../redux/actions/auth';
 import {Overlay} from 'react-native-elements';
 import {createStackNavigator} from '@react-navigation/stack';
 import OrderHistory from './orderHistory';
@@ -9,7 +11,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Logout from 'react-native-vector-icons/AntDesign';
 
 const UserProfile = ({navigation}) => {
+  const {auth} = useSelector((state) => state);
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -21,8 +25,9 @@ const UserProfile = ({navigation}) => {
         <View style={style.photo}>
           <Image source={user} style={style.userImg} />
         </View>
-        <Text style={style.name}>Samidi</Text>
-        <Text style={style.id}>@124</Text>
+        {auth.data === null ? null : (
+          <Text style={style.name}>{auth.data.username}</Text>
+        )}
       </View>
       <TouchableOpacity
         style={style.list}
@@ -42,19 +47,22 @@ const UserProfile = ({navigation}) => {
         isVisible={visible}
         onBackdropPress={toggleOverlay}
         overlayStyle={style.promp}>
-        <Text>Logout ?</Text>
-        <View style={style.btn}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('auth');
-              toggleOverlay();
-            }}
-            style={style.yes}>
-            <Text style={style.str}>yes</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.yes} onPress={() => toggleOverlay()}>
-            <Text style={style.str}>no</Text>
-          </TouchableOpacity>
+        <View style={style.overlayCont}>
+          <Text>Logout ?</Text>
+          <View style={style.btn}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('auth');
+                dispatch(logoutCreator());
+                toggleOverlay();
+              }}
+              style={style.yes}>
+              <Text style={style.str}>yes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={style.no} onPress={() => toggleOverlay()}>
+              <Text style={style.strno}>no</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Overlay>
     </ScrollView>

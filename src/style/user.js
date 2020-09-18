@@ -46,6 +46,11 @@ export default StyleSheet.create({
     marginLeft: 25,
     fontWeight: 'bold',
   },
+  overlayCont: {
+    top: -10,
+    alignItems: 'center',
+    // backgroundColor: 'red',
+  },
   promp: {
     width: '70%',
     height: 140,
@@ -53,6 +58,7 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
   },
   btn: {
+    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'space-around',
     width: '90%',
@@ -67,7 +73,21 @@ export default StyleSheet.create({
     padding: 8,
     backgroundColor: 'black',
   },
+  no: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    height: 40,
+    width: 70,
+    padding: 8,
+    backgroundColor: '#CACFD2',
+  },
   str: {
     color: 'white',
+    fontWeight: 'bold',
+  },
+  strno: {
+    color: 'black',
+    fontWeight: 'bold',
   },
 });

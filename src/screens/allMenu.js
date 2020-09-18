@@ -8,15 +8,12 @@ import Order from '../components/order';
 import style from '../style/foodDetail';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const DetailFood = ({navigation}) => {
+const AllMenu = ({navigation}) => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getMenuCreator());
     }, [dispatch]);
     const {menu, auth} = useSelector((state) => state);
-    const food = menu.data.filter((item) => {
-        return item.name_category === menu.nameCategory.name_category;
-    });
 
     const [visible, setVisible] = useState(false);
     const [id, setId] = useState(id);
@@ -32,8 +29,8 @@ const DetailFood = ({navigation}) => {
                 <Image source={{uri: 'https://images.unsplash.com/photo-1578338705925-51b521fb2e3c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80'}} style={style.topImg} />
             </View>
             <ScrollView style={style.listCont} showsVerticalScrollIndicator={false}>
-                {food.length ?
-                    food.map((item, index) => {
+                {menu.data.length ?
+                    menu.data.map((item, index) => {
                         return (
                             <View press style={style.list} key={index} >
                                 <Image source={{uri: item.picture}} style={style.listPic} />
@@ -115,6 +112,6 @@ const DetailFood = ({navigation}) => {
     );
 };
 
-export default DetailFood;
+export default AllMenu;
 
 

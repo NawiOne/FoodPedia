@@ -54,7 +54,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 40,
     borderRadius: 20,
-    backgroundColor: '#C6456A',
+    backgroundColor: 'black',
     height: 45,
   },
   createAcc: {
@@ -82,10 +82,32 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 40,
     borderRadius: 20,
-    backgroundColor: '#C6456A',
+    backgroundColor: 'black',
     height: 42,
   },
   loginRegis: {
     color: 'white',
+  },
+  error: {
+    top: 130,
+    position: 'absolute',
+    alignSelf: 'center',
+    padding: 6,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 6,
+  },
+  errText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
+  indicator: {
+    position: 'absolute',
+    top: 50,
+    alignSelf: 'center',
   },
 });
