@@ -23,12 +23,11 @@ const Edit = ({navigation}) => {
   const dispatch = useDispatch();
   // state
 
-  const [image, setImage] = useState(menu.editData.picture);
-  const [name, setName] = useState(menu.editData.name);
-  const [price, setPrice] = useState(menu.editData.price);
-  const [id_category, setidCategory] = useState(menu.editData.id_category);
+  const [image, setImage] = useState(null);
+  const [name, setName] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [id_category, setidCategory] = useState(null);
   const [catName, setCatName] = useState(menu.editData.name_category);
-  // const priceStr = menu.editData.price.toString();
   const [status, setStatus] = useState(null);
   const [press, setPress] = useState(false);
 
@@ -82,7 +81,7 @@ const Edit = ({navigation}) => {
             {press ? (
               <Image source={image} style={style.pic} />
             ) : (
-              <Image source={{uri: image}} style={style.pic} />
+              <Image source={{uri: menu.editData.picture}} style={style.pic} />
             )}
             <Icon
               name="edit"
@@ -97,7 +96,7 @@ const Edit = ({navigation}) => {
           <Input
             placeholder="name"
             onChangeText={(text) => setName(text)}
-            value={name}
+            defaultValue={menu.editData.name}
           />
           <Input
             placeholder="price"
@@ -149,16 +148,24 @@ const Edit = ({navigation}) => {
           <TouchableOpacity
             style={style.addBtn}
             onPress={() => {
-              // handleSubmit(menu.editData.id_menu);
-              dispatch(
-                editDataCreator(
-                  name,
-                  image,
-                  price,
-                  id_category,
-                  menu.editData.id_menu,
-                ),
-              );
+              if (
+                name === null &&
+                image === null &&
+                price === null &&
+                id_category === null
+              ) {
+                return null;
+              } else {
+                dispatch(
+                  editDataCreator(
+                    name,
+                    image,
+                    price,
+                    id_category,
+                    menu.editData.id_menu,
+                  ),
+                );
+              }
             }}>
             <Text style={style.add}>Save</Text>
           </TouchableOpacity>

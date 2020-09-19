@@ -14,7 +14,8 @@ import Cart from '../screens/cart';
 import User from '../screens/user';
 import AddMenu from '../screens/addMenu';
 import EditMenu from '../screens/edit';
-import AllMenu from '../screens/allMenu'
+import AllMenu from '../screens/allMenu';
+import cobaFlatlist from '../screens/coba';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
@@ -129,6 +130,13 @@ const HomeStack = () => {
             component={AllMenu}
             options={{
               headerTitle: 'Menu',
+            }}
+          />
+          <Stack.Screen
+            name="flatlist"
+            component={cobaFlatlist}
+            options={{
+              headerTitle: 'coba',
             }}
           />
           <Stack.Screen

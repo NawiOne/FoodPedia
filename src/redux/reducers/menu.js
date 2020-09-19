@@ -18,14 +18,18 @@ import {
   editMenuAction,
   editDataMenuAction,
   changePending,
+  getAllMenuAction,
+  getMoreAction,
 } from '../actions/actionType';
 
 const initalstate = {
   userOrder: [],
+  dataAll: [],
   editData: {},
   category: [],
   orderStatus: [],
   data: [],
+  pageInfo: [],
   dataSearch: [],
   nameCategory: {},
   cart: [],
@@ -64,6 +68,63 @@ const menu = (prevstate = initalstate, {type, payload}) => {
         data: payload.data.data,
         isPending: false,
       };
+    // get all menu
+    case getAllMenuAction + pending:
+      return {
+        ...prevstate,
+        isPending: true,
+      };
+    case getAllMenuAction + rejected:
+      return {
+        ...prevstate,
+        error: payload,
+        isRejected: true,
+        isPending: false,
+      };
+    case getAllMenuAction + fulfilled:
+      return {
+        ...prevstate,
+        isfulfilled: true,
+        dataAll: payload.data.data,
+        pageInfo: payload.data.pageInfo,
+        isPending: false,
+      };
+    // get more menu
+    case getMoreAction + pending:
+      return {
+        ...prevstate,
+        isPending: true,
+      };
+    case getMoreAction + rejected:
+      return {
+        ...prevstate,
+        error: payload,
+        isRejected: true,
+        isPending: false,
+      };
+    case getMoreAction + fulfilled:
+      let newData1 = payload.data.data.map((item) => {
+        const dataMenu = {
+          id_menu: item.id_menu,
+          name: item.name,
+          price: item.price,
+          picture: item.picture,
+          name_category: item.name_category,
+          id_category: item.id_category,
+        };
+        return dataMenu;
+      });
+
+      const arr = [...prevstate.dataAll];
+      const newArr = arr.concat(newData1);
+      return {
+        ...prevstate,
+        isfulfilled: true,
+        dataAll: newArr,
+        pageInfo: payload.data.pageInfo,
+        isPending: false,
+      };
+
     // get category
     case getCatAction + pending:
       return {

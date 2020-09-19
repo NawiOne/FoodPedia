@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {getMenuCreator, addCartCreator, deleteMenuCreator, editMenuCreator} from '../redux/actions/menu';
+import {getMenuCreator, addCartCreator, deleteMenuCreator, editMenuCreator, getMenuAllCreator} from '../redux/actions/menu';
 import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import {Overlay} from 'react-native-elements';
 import Order from '../components/order';
@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 const AllMenu = ({navigation}) => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getMenuCreator());
+        dispatch(getMenuAllCreator());
     }, [dispatch]);
     const {menu, auth} = useSelector((state) => state);
 
@@ -29,8 +29,8 @@ const AllMenu = ({navigation}) => {
                 <Image source={{uri: 'https://images.unsplash.com/photo-1578338705925-51b521fb2e3c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80'}} style={style.topImg} />
             </View>
             <ScrollView style={style.listCont} showsVerticalScrollIndicator={false}>
-                {menu.data.length ?
-                    menu.data.map((item, index) => {
+                {menu.dataAll.length ?
+                    menu.dataAll.map((item, index) => {
                         return (
                             <View press style={style.list} key={index} >
                                 <Image source={{uri: item.picture}} style={style.listPic} />
@@ -48,8 +48,8 @@ const AllMenu = ({navigation}) => {
                                                     item.picture,
                                                     item.name_category,
                                                     item.id_category
-                                                ))
-                                                navigation.navigate('edit')}} >
+                                                ));
+                                                navigation.navigate('edit');}} >
                                                 <Icon name="edit" size={16} />
                                             </TouchableOpacity>
                                             <TouchableOpacity style={style.cartAdmin} onPress={() => {

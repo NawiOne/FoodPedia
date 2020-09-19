@@ -1,5 +1,6 @@
 import {
   getMenu,
+  getMenuAll,
   getCategory,
   searchMenu,
   getOrderHistory,
@@ -7,9 +8,11 @@ import {
   deleteOrder,
   deleteMenu,
   editMenu,
+  getMoreMenu,
 } from '../../utils/http';
 import {
   getMenuAction,
+  getAllMenuAction,
   getCatAction,
   searchMenuAction,
   getOrderUserAction,
@@ -25,12 +28,25 @@ import {
   editMenuAction,
   editDataMenuAction,
   changePending,
+  getMoreAction,
 } from '../actions/actionType';
 
 export const getMenuCreator = () => {
   return {
     type: getMenuAction,
     payload: getMenu(),
+  };
+};
+export const getMenuAllCreator = () => {
+  return {
+    type: getAllMenuAction,
+    payload: getMenuAll(),
+  };
+};
+export const getMoreCreator = (page) => {
+  return {
+    type: getMoreAction,
+    payload: getMoreMenu(page),
   };
 };
 export const getCategoryCreator = () => {
@@ -93,10 +109,10 @@ export const cancelCartCreator = () => {
   };
 };
 
-export const getOrderUserCreator = () => {
+export const getOrderUserCreator = (name) => {
   return {
     type: getOrderUserAction,
-    payload: getOrderHistory(),
+    payload: getOrderHistory(name),
   };
 };
 
@@ -159,5 +175,5 @@ export const editDataCreator = (name, image, price, id_category, id_menu) => {
 export const changePendingCreator = () => {
   return {
     type: changePending,
-  }
-}
+  };
+};

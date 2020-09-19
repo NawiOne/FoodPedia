@@ -51,48 +51,57 @@ const AddMenu = () => {
   };
 
   const toast = () => {
-    ToastAndroid.show(
-      'Add menu success',
-      ToastAndroid.CENTER,
-      ToastAndroid.SHORT,
-    );
+    ToastAndroid.show('Add menu success', ToastAndroid.TOP, ToastAndroid.SHORT);
+  };
+
+  const error = () => {
+    ToastAndroid.show('cannot ', ToastAndroid.TOP, ToastAndroid.SHORT);
   };
 
   const handleSubmit = () => {
-    let data = new FormData();
-    data.append('name', name);
-    data.append('image', {
-      uri: `file://${image.path}`,
-      type: image.type,
-      name: image.fileName,
-      size: image.fileSize,
-    });
-    data.append('price', price);
-    data.append('id_category', id_category);
-
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data',
-        contentType: false,
-        mimeType: 'multipart/form-data',
-        'cache-control': 'no-cache',
-        accept: 'application/json',
-      },
-    };
-    const url = 'http://54.198.163.118:8000/insert';
-    Axios.post(url, data, config)
-      .then((res) => {
-        console.log(res);
-        setStatus(res.status);
-        setTimeout(() => setStatus(null), 2000);
-      })
-      .catch((err) => {
-        console.log(err);
+    if (
+      name === null ||
+      image === null ||
+      price === null ||
+      id_category === null
+    ) {
+      error();
+    } else {
+      let data = new FormData();
+      data.append('name', name);
+      data.append('image', {
+        uri: `file://${image.path}`,
+        type: image.type,
+        name: image.fileName,
+        size: image.fileSize,
       });
-    setCatName(null);
-    setImage(null);
-    setName(null);
-    setPrice(null);
+      data.append('price', price);
+      data.append('id_category', id_category);
+
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+          contentType: false,
+          mimeType: 'multipart/form-data',
+          'cache-control': 'no-cache',
+          accept: 'application/json',
+        },
+      };
+      const url = 'http://54.198.163.118:8000/insert';
+      Axios.post(url, data, config)
+        .then((res) => {
+          console.log(res);
+          setStatus(res.status);
+          setTimeout(() => setStatus(null), 2000);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      setCatName(null);
+      setImage(null);
+      setName(null);
+      setPrice(null);
+    }
   };
 
   return (

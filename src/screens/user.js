@@ -6,7 +6,7 @@ import {Overlay} from 'react-native-elements';
 import {createStackNavigator} from '@react-navigation/stack';
 import OrderHistory from './orderHistory';
 import style from '../style/user';
-import user from '../image/user.jpg';
+import user from '../image/user.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Logout from 'react-native-vector-icons/AntDesign';
 
@@ -23,7 +23,10 @@ const UserProfile = ({navigation}) => {
     <ScrollView style={style.container}>
       <View style={style.header}>
         <View style={style.photo}>
-          <Image source={user} style={style.userImg} />
+          {auth.data === null ? (
+            <Image source={user} style={style.userImg} />
+          ) : // <Image source={{uri: auth.data.picture}} style={style.userImg} />
+          null}
         </View>
         {auth.data === null ? null : (
           <Text style={style.name}>{auth.data.username}</Text>

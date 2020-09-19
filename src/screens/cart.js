@@ -23,14 +23,15 @@ const fullYear = `${date}-${month}-${year}`;
 const getDate = new Date().getDate().toString();
 const getMil = new Date().getMilliseconds().toString();
 const id = getDate + getMil;
-const name = 'waluyo';
+
 
 const Cart = ({navigation}) => {
     const dispatch = useDispatch();
-    const {menu} = useSelector((state) => state);
+    const {menu, auth} = useSelector((state) => state);
     const price = menu.cart.map((item) => {
         return item.price * item.quantity;
     });
+    const name = auth.data.username;
     const totalPrice = price.reduce((total, index) => {
         return total + index;
     }, 0);

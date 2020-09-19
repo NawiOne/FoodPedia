@@ -2,9 +2,17 @@ import Axios from 'axios';
 import search from '../style/search';
 
 export const getMenu = () => {
-  return Axios.get('http://54.198.163.118:8000/getalldata?page=1&limit=100');
+  return Axios.get('http://54.198.163.118:8000/getalldata?page=1&limit=1000');
 };
 
+export const getMenuAll = () => {
+  return Axios.get('http://54.198.163.118:8000/getalldata?page=1&limit=6');
+};
+export const getMoreMenu = (page) => {
+  return Axios.get(
+    `http://54.198.163.118:8000/getalldata?page=${page}&limit=6`,
+  );
+};
 export const getCategory = () => {
   return Axios.get('http://54.198.163.118:8000/category');
 };
@@ -14,13 +22,14 @@ export const searchMenu = (name) => {
   return Axios.get(`${url}?name=${name}&by=name`);
 };
 
-export const getOrderHistory = () => {
-  const url = 'http://54.198.163.118:8000/orderuser';
+export const getOrderHistory = (name) => {
+  const url = `http://54.198.163.118:8000/orderuser?name=${name}`;
   return Axios.get(url);
 };
 export const insertOrder = (date, name, orders, amount) => {
   const data = {
     date: date,
+
     name: name,
     orders: orders,
     amount: amount,
@@ -58,17 +67,21 @@ export const register = (username, password, email) => {
 
 export const editMenu = (name, image, price, id_category, id_menu) => {
   let data = new FormData();
-  data.append('name', name);
-  data.append('image', {
-    uri: `file://${image.path}`,
-    type: image.type,
-    name: image.fileName,
-    size: image.fileSize,
-  });
-  data.append('price', price);
-  data.append('id_category', id_category);
+  if (name !== null) {
+    data.append('name', name);
+  } else if (image !== null) {
+    data.append('image', {
+      uri: `file://${image.path}`,
+      type: image.type,
+      name: image.fileName,
+      size: image.fileSize,
+    });
+  } else if (price !== null) {
+    data.append('price', price);
+  } else if (id_category !== null) {
+    data.append('id_category', id_category);
+  }
   data.append('id_menu', id_menu);
-
   const config = {
     headers: {
       'content-type': 'multipart/form-data',

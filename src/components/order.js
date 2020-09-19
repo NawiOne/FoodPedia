@@ -24,6 +24,8 @@ const Order = ({navigation}) => {
 export default Order;
 const style = StyleSheet.create({
   container: {
+    bottom: 0,
+    position: 'absolute',
     flexDirection: 'row',
     // paddingBottom: 40,
     paddingRight: 30,

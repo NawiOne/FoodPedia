@@ -20,7 +20,7 @@ const ListFood = ({navigation}) => {
         {menu.category.length ? (
           <TouchableOpacity
             style={style.food}
-            onPress={() => navigation.navigate('allmenu')}>
+            onPress={() => navigation.navigate('flatlist')}>
             <Image source={img} style={style.foodImg} />
             <Text style={style.nameFood}>All Menu</Text>
           </TouchableOpacity>

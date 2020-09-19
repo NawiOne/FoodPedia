@@ -51,8 +51,8 @@ const DetailFood = ({navigation}) => {
                                                     item.picture,
                                                     item.name_category,
                                                     item.id_category
-                                                ))
-                                                navigation.navigate('edit')}} >
+                                                ));
+                                                navigation.navigate('edit');}} >
                                                 <Icon name="edit" size={16} />
                                             </TouchableOpacity>
                                             <TouchableOpacity style={style.cartAdmin} onPress={() => {

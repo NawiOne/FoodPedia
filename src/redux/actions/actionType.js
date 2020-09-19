@@ -1,4 +1,6 @@
 export const getMenuAction = 'GET_MENU';
+export const getMoreAction = 'GET_MORE_MENU';
+export const getAllMenuAction = 'GET_ALL_MENU';
 export const getCatAction = 'GET_CATEGORY';
 export const byCategoryAction = 'BY_CATEGORY';
 export const searchMenuAction = 'SEARCH_MENU';

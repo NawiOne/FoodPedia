@@ -16,9 +16,11 @@ import img from '../image/header.jpg';
 const Order = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getOrderUserCreator());
-  }, [dispatch]);
-  const {menu} = useSelector((state) => state);
+    dispatch(getOrderUserCreator(name));
+  }, [dispatch, name]);
+  const {menu, auth} = useSelector((state) => state);
+  const name = auth.data.username;
+
   return (
     <ScrollView style={style.container}>
       <View style={style.header}>
@@ -53,7 +55,7 @@ const Order = () => {
                 style={style.delete}
                 onPress={() => {
                   dispatch(deleteOrderCreator(item.id));
-                  dispatch(getOrderUserCreator());
+                  dispatch(getOrderUserCreator(name));
                 }}>
                 <Icon name="trash" color="#F95A50" size={27} />
               </TouchableOpacity>

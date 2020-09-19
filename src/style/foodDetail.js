@@ -140,5 +140,5 @@ export default StyleSheet.create({
   strno: {
     color: 'black',
     fontWeight: 'bold',
-  }
+  },
 });

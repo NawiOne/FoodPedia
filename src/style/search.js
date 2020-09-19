@@ -2,8 +2,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    // padding: 10,
-    backgroundColor: '#EAF2F8',
+    // backgroundColor: '#EAF2F8',
   },
   topTab: {
     alignItems: 'center',
@@ -36,9 +35,10 @@ export default StyleSheet.create({
   listCont: {
     alignSelf: 'center',
     width: '95%',
+    height: '100%',
     marginTop: 10,
     backgroundColor: '#EAF2F8',
-    marginBottom: 80,
+    // marginBottom: 80,
   },
   list: {
     backgroundColor: 'white',
@@ -139,10 +139,10 @@ export default StyleSheet.create({
   },
   str: {
     color: 'white',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   strno: {
     color: 'black',
     fontWeight: 'bold',
-  }
+  },
 });
