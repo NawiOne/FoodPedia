@@ -25,8 +25,11 @@ const UserProfile = ({navigation}) => {
         <View style={style.photo}>
           {auth.data === null ? (
             <Image source={user} style={style.userImg} />
-          ) : // <Image source={{uri: auth.data.picture}} style={style.userImg} />
-          null}
+          ) : auth.data.picture === null ? (
+            <Image source={user} style={style.userImg} />
+          ) : (
+            <Image source={{uri: auth.data.picture}} style={style.userImg} />
+          )}
         </View>
         {auth.data === null ? null : (
           <Text style={style.name}>{auth.data.username}</Text>
