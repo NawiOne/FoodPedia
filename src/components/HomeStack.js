@@ -9,6 +9,7 @@ import FoodDetail from '../screens/foodDetail';
 import Search from '../screens/search';
 import HomeMenu from '../screens/home';
 import Auth from '../components/auth';
+import Splash from '../screens/splash'
 
 import Cart from '../screens/cart';
 import User from '../screens/user';
@@ -20,6 +21,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
 
 const BottomTab = () => {
   const {menu, auth} = useSelector((state) => state);
@@ -76,7 +78,6 @@ const BottomTab = () => {
           }}
         />
       )}
-
       <Tab.Screen
         name="user"
         component={User}
@@ -92,11 +93,20 @@ const BottomTab = () => {
 };
 
 const HomeStack = () => {
+
+
   const {menu} = useSelector((state) => state);
   return (
     <>
       <NavigationContainer>
         <Stack.Navigator>
+        <Stack.Screen
+            name="spash"
+            component={Splash}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen
             name="auth"
             component={Auth}
@@ -136,7 +146,7 @@ const HomeStack = () => {
             name="flatlist"
             component={cobaFlatlist}
             options={{
-              headerTitle: 'coba',
+              headerTitle: 'All menu',
             }}
           />
           <Stack.Screen

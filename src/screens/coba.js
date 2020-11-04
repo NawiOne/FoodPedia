@@ -23,7 +23,6 @@ import imgHeader from '../image/allFood.webp';
 
 const CobaFlatList = ({navigation}) => {
   const [page, setPage] = useState(2);
-  // const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -44,7 +43,7 @@ const CobaFlatList = ({navigation}) => {
   console.log(pageInfo.nextPage);
 
   const getMoreMenu = () => {
-    if (pageInfo.nextPage !== "") {
+    if (pageInfo.nextPage !== '') {
       setPage(page + 1);
       dispatch(getMoreCreator(page));
     }
@@ -108,13 +107,15 @@ const CobaFlatList = ({navigation}) => {
   };
 
   const renderFooter = () => {
-    if (pageInfo.nextPage !== "") {
+    if (pageInfo.nextPage !== '') {
       return (
         <View style={{marginTop: 10, alignItems: 'center'}}>
           <ActivityIndicator size="large" color="black" />
         </View>
       );
-    } else return null;
+    } else {
+      return null;
+    }
   };
 
   return (
@@ -123,15 +124,20 @@ const CobaFlatList = ({navigation}) => {
         <View style={style.header}>
           <Image source={imgHeader} style={style.imgHeader} />
         </View>
-        <FlatList
-          style={style.flatList}
-          data={data}
-          renderItem={renderRow}
-          keyExtractor={(item, index) => index.toString()}
-          onEndReached={getMoreMenu}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={renderFooter}
-        />
+        {data.length ? (
+          <FlatList
+            style={style.flatList}
+            data={data}
+            renderItem={renderRow}
+            keyExtractor={(item, index) => index.toString()}
+            onEndReached={getMoreMenu}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={renderFooter}
+          />
+        ) : (
+          <Text style={style.emptymenu}>Menu is unavailable now</Text>
+        )}
+
         {auth.isAdmin === false ? (
           cart.length ? (
             <Order navigation={navigation} />
@@ -322,5 +328,10 @@ const style = StyleSheet.create({
   strno: {
     color: 'black',
     fontWeight: 'bold',
+  },
+  emptymenu: {
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginTop: 50,
   },
 });

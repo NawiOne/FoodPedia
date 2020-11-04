@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Overlay} from 'react-native-elements';
 import {Text, View, Image, ImageBackground, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Button} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {plusQuantityCreator, minQuantityCreator, cancelCartCreator, insertOrderCreator} from '../redux/actions/menu';
@@ -26,12 +27,18 @@ const id = getDate + getMil;
 
 
 const Cart = ({navigation}) => {
+
+    const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
     const {menu, auth} = useSelector((state) => state);
     const price = menu.cart.map((item) => {
         return item.price * item.quantity;
     });
-    const name = auth.data.username;
+    const name = () => {
+        if(auth.data !== null) {
+            return auth.data.username;
+        }
+    };
     const totalPrice = price.reduce((total, index) => {
         return total + index;
     }, 0);
@@ -39,7 +46,15 @@ const Cart = ({navigation}) => {
     const orders = menu.cart.map((item) => {
         return item.name;
     });
-  
+
+    const toggleOverlay = () => {
+        setTimeout(() => {
+            setVisible(!visible);
+        }, 2000);
+
+    };
+
+
     return (
         <View style={style.container}>
             <View style={style.header}>
@@ -103,10 +118,11 @@ const Cart = ({navigation}) => {
                                     dispatch(cancelCartCreator());
                                     dispatch(insertOrderCreator(
                                         fullYear,
-                                        name,
+                                        name(),
                                         orders.toString(),
                                         plusDelivery,
                                     ));
+                                    toggleOverlay();
                                 }}>
                                     <Text style={style.btn}>Checkout</Text>
                                 </TouchableOpacity>
@@ -124,7 +140,7 @@ const Cart = ({navigation}) => {
                             </View>
                             : <View style={style.empty}>
                                 <Image source={img} style={style.imgEmpty} />
-                                <Text style={{marginTop: 2, marginBottom: 10,}}>Oops!, your cart is empty</Text>
+                                <Text style={{marginTop: 2, marginBottom: 10}}>Oops!, your cart is empty</Text>
                                 <Button
                                     title="Choose your menu"
                                     color="#48C9B0"
@@ -134,6 +150,25 @@ const Cart = ({navigation}) => {
                             </View>
                 }
             </ScrollView>
+            <Overlay
+                isVisible={visible}
+                onBackdropPress={toggleOverlay}
+                overlayStyle={style.promp}>
+                <View style={style.overlayCont}>
+                    <Text style={{textAlign: 'center'}}>Order success</Text>
+                    <Text style={{textAlign: 'center'}}>you can take it at FoodPedia</Text>
+                    <View style={style.btn2}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                toggleOverlay();
+                                navigation.navigate('home')
+                            }}
+                            style={style.yes}>
+                            <Text style={style.str}>Ok</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Overlay>
         </View>
     );
 };

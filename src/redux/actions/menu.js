@@ -9,6 +9,7 @@ import {
   deleteMenu,
   editMenu,
   getMoreMenu,
+  getAllOrderHistory,
 } from '../../utils/http';
 import {
   getMenuAction,
@@ -29,6 +30,7 @@ import {
   editDataMenuAction,
   changePending,
   getMoreAction,
+  getAllOderAction,
 } from '../actions/actionType';
 
 export const getMenuCreator = () => {
@@ -113,6 +115,13 @@ export const getOrderUserCreator = (name) => {
   return {
     type: getOrderUserAction,
     payload: getOrderHistory(name),
+  };
+};
+
+export const getAllOrderCreator = () => {
+  return {
+    type: getAllOderAction,
+    payload: getAllOrderHistory(),
   };
 };
 

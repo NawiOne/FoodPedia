@@ -1,11 +1,7 @@
 import {createStore, applyMiddleware} from 'redux';
 import {createLogger} from 'redux-logger';
 import rpm from 'redux-promise-middleware';
-import {
-  persistStore,
-  persistCombineReducers,
-  persistReducer,
-} from 'redux-persist';
+import {persistStore, persistReducer} from 'redux-persist';
 import AsynStorage from '@react-native-community/async-storage';
 import indexreducer from './reducers/index';
 

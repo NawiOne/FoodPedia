@@ -189,4 +189,34 @@ export default StyleSheet.create({
     height: 120,
     resizeMode: 'cover',
   },
+  overlayCont: {
+    top: -10,
+    alignItems: 'center',
+  },
+  promp: {
+    width: '70%',
+    height: 140,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btn2: {
+    alignSelf: 'center',
+    marginTop: 20,
+    width: '90%',
+    flexDirection: 'row',
+  },
+  yes: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    height: 40,
+    width: 70,
+    padding: 8,
+    backgroundColor: 'black',
+  },
+
+  str: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });

@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import style from '../style/home';
-import img from '../image/appetizers.jpg';
+import img from '../image/makanan.jpg';
 
 const ListFood = ({navigation}) => {
   const dispatch = useDispatch();

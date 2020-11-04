@@ -5,10 +5,15 @@ import {
   fulfilled,
   logoutAction,
   registerAction,
+  updateProfileAction,
+  getDataUserAction,
 } from '../actions/actionType';
 
 const initialState = {
   data: null,
+  status: 190,
+  dataUser: [],
+  dataUpdate: [],
   isAdmin: false,
   isLogin: false,
   isPending: false,
@@ -58,6 +63,7 @@ const auth = (state = initialState, {type, payload}) => {
       return {
         ...state,
         data: null,
+        dataUser: null,
         isAdmin: false,
         isLogin: false,
         isPending: false,
@@ -97,6 +103,46 @@ const auth = (state = initialState, {type, payload}) => {
         isRejected: false,
         isAdmin: admin,
         isLogin: login,
+      };
+    case updateProfileAction + pending:
+      return {
+        ...state,
+        isPending: true,
+        isFulfilled: false,
+      };
+    case updateProfileAction + rejected:
+      return {
+        ...state,
+        isRejected: true,
+        dataUpdate: payload,
+        isPending: false,
+      };
+    case updateProfileAction + fulfilled:
+      return {
+        ...state,
+        isFulfilled: true,
+        dataUpdate: payload.data.data,
+        isPending: false,
+        status: 200,
+      };
+    case getDataUserAction + pending:
+      return {
+        ...state,
+        isPending: true,
+      };
+    case getDataUserAction + rejected:
+      return {
+        ...state,
+        isRejected: true,
+        dataUser: payload,
+        isPending: false,
+      };
+    case getDataUserAction + fulfilled:
+      return {
+        ...state,
+        isFulfilled: true,
+        dataUser: payload.data.data,
+        isPending: false,
       };
     default:
       return state;

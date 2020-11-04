@@ -7,6 +7,7 @@ import {Overlay} from 'react-native-elements';
 import Order from '../components/order';
 import style from '../style/foodDetail';
 import Icon from 'react-native-vector-icons/AntDesign';
+import imgTop from '../image/allFood.webp'
 
 const DetailFood = ({navigation}) => {
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const DetailFood = ({navigation}) => {
     return (
         <View style={style.container}>
             <View style={style.top}>
-                <Image source={{uri: 'https://images.unsplash.com/photo-1578338705925-51b521fb2e3c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80'}} style={style.topImg} />
+                <Image source={imgTop} style={style.topImg} />
             </View>
             <ScrollView style={style.listCont} showsVerticalScrollIndicator={false}>
                 {food.length ?

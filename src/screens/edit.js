@@ -1,22 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Input, ButtonGroup} from 'react-native-elements';
+import {Input, ButtonGroup, Overlay} from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
-import Axios from 'axios';
 import {editDataCreator, getMenuCreator} from '../redux/actions/menu';
 import {
   View,
   Text,
   TouchableOpacity,
   Image,
-  ToastAndroid,
+  Alert,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import style from '../style/edit';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
-import dish from '../image/main-dishes.jpg';
 import Icon from 'react-native-vector-icons/AntDesign';
-import auth from '../redux/reducers/auth';
 
 const Edit = ({navigation}) => {
   const {menu} = useSelector((state) => state);
@@ -30,8 +28,19 @@ const Edit = ({navigation}) => {
   const [catName, setCatName] = useState(menu.editData.name_category);
   const [status, setStatus] = useState(null);
   const [press, setPress] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   // to handle photo from localStorage
+  const alert = () => {
+    Alert.alert(
+      'File Too Larger',
+      '',
+      [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+      {cancelable: false},
+    );
+  };
+
+
   const handleChoose = () => {
     const options = {
       title: 'select-picture',
@@ -42,21 +51,25 @@ const Edit = ({navigation}) => {
       noData: true,
     };
 
-    ImagePicker.launchImageLibrary(options, (response) => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
-        console.log('dicancel');
+        setPress(false);
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = response;
-        setImage(source);
+        if (response.fileSize > 200000) {
+          alert();
+        } else {
+          setImage(source);
+        }
       }
     });
   };
-  const toast = () => {
-    ToastAndroid.show('Add menu success', ToastAndroid.TOP, ToastAndroid.LONG);
+  const toggleOverlay = () => {
+    setVisible(!visible);
   };
 
   return (
@@ -64,7 +77,7 @@ const Edit = ({navigation}) => {
       {menu.pendingEdit === null ? null : menu.pendingEdit ? (
         <ActivityIndicator size="large" color="#EB5323" style={style.loading} />
       ) : null}
-      <View style={style.container}>
+      <ScrollView style={style.container}>
         <View style={style.title}>
           <TouchableOpacity
             style={style.goBack}
@@ -102,7 +115,7 @@ const Edit = ({navigation}) => {
             placeholder="price"
             keyboardType="number-pad"
             onChangeText={(num) => setPrice(num)}
-            // defaultValue={priceStr}
+            defaultValue={menu.editData.price.toString()}
           />
           <View style={style.catName}>
             <Text style={{marginLeft: 10, fontWeight: 'bold'}}>Category</Text>
@@ -154,7 +167,7 @@ const Edit = ({navigation}) => {
                 price === null &&
                 id_category === null
               ) {
-                return null;
+                toggleOverlay();
               } else {
                 dispatch(
                   editDataCreator(
@@ -170,7 +183,26 @@ const Edit = ({navigation}) => {
             <Text style={style.add}>Save</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
+      <Overlay
+        isVisible={visible}
+        onBackdropPress={toggleOverlay}
+        overlayStyle={style.promp}>
+        <View style={style.overlayCont}>
+          <Text style={{textAlign: 'center'}}>
+            fill wich data you will update
+          </Text>
+          <View style={style.btn}>
+            <TouchableOpacity
+              onPress={() => {
+                toggleOverlay();
+              }}
+              style={style.yes}>
+              <Text style={style.str}>Ok</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
     </>
   );
 };

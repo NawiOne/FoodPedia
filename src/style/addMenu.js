@@ -99,4 +99,40 @@ export default StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
+  overlayCont: {
+    top: -10,
+    alignItems: 'center',
+    // backgroundColor: 'red',
+  },
+  promp: {
+    width: '50%',
+    height: 140,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btn: {
+    alignSelf: 'center',
+    marginTop: 20,
+    width: '90%',
+    flexDirection: 'row',
+  },
+  yes: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    height: 40,
+    width: 70,
+    padding: 8,
+    backgroundColor: 'black',
+  },
+
+  str: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  loading: {
+    position: 'absolute',
+    top: 200,
+    alignSelf: 'center',
+  },
 });

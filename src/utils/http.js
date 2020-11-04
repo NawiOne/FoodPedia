@@ -2,53 +2,55 @@ import Axios from 'axios';
 import search from '../style/search';
 
 export const getMenu = () => {
-  return Axios.get('http://54.198.163.118:8000/getalldata?page=1&limit=1000');
+  return Axios.get('http://52.91.11.189:8000/getalldata?page=1&limit=1000');
 };
 
 export const getMenuAll = () => {
-  return Axios.get('http://54.198.163.118:8000/getalldata?page=1&limit=6');
+  return Axios.get('http://52.91.11.189:8000/getalldata?page=1&limit=6');
 };
 export const getMoreMenu = (page) => {
-  return Axios.get(
-    `http://54.198.163.118:8000/getalldata?page=${page}&limit=6`,
-  );
+  return Axios.get(`http://52.91.11.189:8000/getalldata?page=${page}&limit=6`);
 };
 export const getCategory = () => {
-  return Axios.get('http://54.198.163.118:8000/category');
+  return Axios.get('http://52.91.11.189:8000/category');
 };
 
 export const searchMenu = (name) => {
-  const url = 'http://54.198.163.118:8000/search';
+  const url = 'http://52.91.11.189:8000/search';
   return Axios.get(`${url}?name=${name}&by=name`);
 };
 
 export const getOrderHistory = (name) => {
-  const url = `http://54.198.163.118:8000/orderuser?name=${name}`;
+  const url = `http://52.91.11.189:8000/orderuser?name=${name}`;
   return Axios.get(url);
 };
+export const getAllOrderHistory = () => {
+  const url = 'http://52.91.11.189:8000/orderuser/all';
+  return Axios.get(url);
+};
+
 export const insertOrder = (date, name, orders, amount) => {
   const data = {
     date: date,
-
     name: name,
     orders: orders,
     amount: amount,
   };
-  const url = 'http://54.198.163.118:8000/orderuser';
+  const url = 'http://52.91.11.189:8000/orderuser';
   return Axios.post(url, data);
 };
 export const deleteOrder = (id) => {
-  const url = `http://54.198.163.118:8000/orderuser?id=${id}`;
+  const url = `http://52.91.11.189:8000/orderuser?id=${id}`;
   return Axios.delete(url);
 };
 
 export const deleteMenu = (id) => {
-  const url = `http://54.198.163.118:8000/delete?id=${id}`;
+  const url = `http://52.91.11.189:8000/delete?id=${id}`;
   return Axios.delete(url);
 };
 
 export const login = (username, password) => {
-  const url = 'http://54.198.163.118:8000/auth/login';
+  const url = 'http://52.91.11.189:8000/auth/login';
   return Axios.post(url, {
     username: username,
     password: password,
@@ -56,7 +58,7 @@ export const login = (username, password) => {
 };
 
 export const register = (username, password, email) => {
-  const url = 'http://54.198.163.118:8000/auth/register';
+  const url = 'http://52.91.11.189:8000/auth/register';
   return Axios.post(url, {
     username: username,
     password: password,
@@ -91,6 +93,39 @@ export const editMenu = (name, image, price, id_category, id_menu) => {
       accept: 'application/json',
     },
   };
-  const url = 'http://54.198.163.118:8000/update';
+  const url = 'http://52.91.11.189:8000/update';
   return Axios.patch(url, data, config);
+};
+
+export const updateProfile = (username, email, image, id) => {
+  let data = new FormData();
+  if (username !== null) {
+    data.append('username', username);
+  } else if (email !== null) {
+    data.append('email', email);
+  } else if (image !== null) {
+    data.append('image', {
+      uri: `file://${image.path}`,
+      type: image.type,
+      name: image.fileName,
+      size: image.fileSize,
+    });
+  }
+  data.append('id', id);
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data',
+      contentType: false,
+      mimeType: 'multipart/form-data',
+      'cache-control': 'no-cache',
+      accept: 'application/json',
+    },
+  };
+  const url = 'http://52.91.11.189:8000/auth/update';
+  return Axios.patch(url, data, config);
+};
+
+export const getDataUser = (id) => {
+  const url = `http://52.91.11.189:8000/auth?id=${id}`;
+  return Axios.get(url);
 };

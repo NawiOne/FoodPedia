@@ -1,7 +1,9 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+const height = Dimensions.get('screen').height;
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    height,
   },
   image: {
     flex: 1,

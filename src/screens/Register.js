@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import style from '../style/login';
 import background from '../image/berry.jpg';
@@ -61,10 +62,12 @@ const Register = ({navigation}) => {
   }, [auth]);
 
   return (
-    <View style={style.container}>
+    <ScrollView
+      contentContainerStyle={style.container}
+      showsVerticalScrollIndicator={false}>
       <ImageBackground source={background} style={style.image}>
         <View style={style.content}>
-          <View style={style.form}>
+          <ScrollView style={style.form} showsVerticalScrollIndicator={false}>
             <View style={style.logo}>
               <View style={style.spoon}>
                 <Image source={logo} style={style.logoImg} />
@@ -113,10 +116,10 @@ const Register = ({navigation}) => {
               onPress={() => navigation.navigate('login')}>
               <Text style={style.loginRegis}>Have an account? Login</Text>
             </TouchableOpacity>
-          </View>
+          </ScrollView>
         </View>
       </ImageBackground>
-    </View>
+    </ScrollView>
   );
 };
 

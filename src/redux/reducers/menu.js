@@ -20,10 +20,12 @@ import {
   changePending,
   getAllMenuAction,
   getMoreAction,
+  getAllOderAction,
 } from '../actions/actionType';
 
 const initalstate = {
   userOrder: [],
+  adminHistory: [],
   dataAll: [],
   editData: {},
   category: [],
@@ -267,7 +269,27 @@ const menu = (prevstate = initalstate, {type, payload}) => {
         userOrder: payload.data.data,
         isPending: false,
       };
-
+    // get all order history
+    case getAllOderAction + pending:
+      return {
+        ...prevstate,
+        isPending: true,
+      };
+    case getAllOderAction + rejected:
+      return {
+        ...prevstate,
+        error: payload,
+        isRejected: true,
+        isPending: false,
+      };
+    case getAllOderAction + fulfilled:
+      return {
+        ...prevstate,
+        isfulfilled: true,
+        adminHistory: payload.data.data,
+        isPending: false,
+      };
+    // insert order history
     case insertOrderAction + pending:
       return {
         ...prevstate,

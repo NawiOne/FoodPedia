@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import {Input, ButtonGroup} from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
+import {Overlay} from 'react-native-elements';
 import Axios from 'axios';
 import {
   View,
   Text,
   TouchableOpacity,
   Image,
-  ToastAndroid,
+  Alert,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import style from '../style/addMenu';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -21,8 +23,19 @@ const AddMenu = () => {
   const [id_category, setidCategory] = useState(null);
   const [catName, setCatName] = useState(null);
   const [status, setStatus] = useState(128);
-
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [loadingVisible, setLoadingVisible] = useState(false);
   // to handle photo from localStorage
+  const alert = () => {
+    Alert.alert(
+      'File Too Larger',
+      '',
+      [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+      {cancelable: false},
+    );
+  };
+
   const handleChoose = () => {
     const options = {
       title: 'select-picture',
@@ -33,7 +46,7 @@ const AddMenu = () => {
       noData: true,
     };
 
-    ImagePicker.launchImageLibrary(options, (response) => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
         console.log('dicancel');
       } else if (response.error) {
@@ -42,20 +55,21 @@ const AddMenu = () => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = response;
-        setImage(source);
+        if (response.fileSize > 200000) {
+          setImage(null);
+          alert();
+        } else {
+          setImage(source);
+        }
       }
     });
   };
-  const loading = () => {
-    return <ActivityIndicator size="large" color="black" />;
-  };
 
-  const toast = () => {
-    ToastAndroid.show('Add menu success', ToastAndroid.TOP, ToastAndroid.SHORT);
+  const toggleOverlay = () => {
+    setVisible(!visible);
   };
-
-  const error = () => {
-    ToastAndroid.show('cannot ', ToastAndroid.TOP, ToastAndroid.SHORT);
+  const toggleSuccess = () => {
+    setLoadingVisible(!loadingVisible);
   };
 
   const handleSubmit = () => {
@@ -65,7 +79,7 @@ const AddMenu = () => {
       price === null ||
       id_category === null
     ) {
-      error();
+      toggleOverlay();
     } else {
       let data = new FormData();
       data.append('name', name);
@@ -92,6 +106,7 @@ const AddMenu = () => {
         .then((res) => {
           console.log(res);
           setStatus(res.status);
+          console.log(res.status);
           setTimeout(() => setStatus(null), 2000);
         })
         .catch((err) => {
@@ -101,13 +116,23 @@ const AddMenu = () => {
       setImage(null);
       setName(null);
       setPrice(null);
+      setLoading(true);
     }
   };
+  if (status === 200) {
+    setLoading(false);
+    console.log('sudah jadi');
+    setStatus(128);
+  }
 
   return (
     <>
-      {status === 200 ? toast() : null}
-      <View style={style.container}>
+      {status === 200 ? toggleSuccess() : null}
+      <ScrollView style={style.container}>
+        {loading ? (
+          <ActivityIndicator size="large" color="black" style={style.loading} />
+        ) : null}
+
         <View style={style.header}>
           <View style={style.logoName}>
             <View style={style.logo}>
@@ -196,7 +221,41 @@ const AddMenu = () => {
             <Text style={style.add}>Add</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
+      <Overlay
+        isVisible={visible}
+        onBackdropPress={toggleOverlay}
+        overlayStyle={style.promp}>
+        <View style={style.overlayCont}>
+          <Text>All field cannot be empty</Text>
+          <View style={style.btn}>
+            <TouchableOpacity
+              onPress={() => {
+                toggleOverlay();
+              }}
+              style={style.yes}>
+              <Text style={style.str}>Ok</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
+      <Overlay
+        isVisible={loadingVisible}
+        onBackdropPress={toggleOverlay}
+        overlayStyle={style.promp}>
+        <View style={style.overlayCont}>
+          <Text>Add menu success</Text>
+          <View style={style.btn}>
+            <TouchableOpacity
+              onPress={() => {
+                toggleSuccess();
+              }}
+              style={style.yes}>
+              <Text style={style.str}>Ok</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
     </>
   );
 };

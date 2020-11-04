@@ -40,8 +40,8 @@ export default StyleSheet.create({
   },
   pic: {
     marginBottom: 10,
-    width: '100%',
-    height: '100%',
+    width: 130,
+    height: 100,
     resizeMode: 'cover',
     marginLeft: 10,
     borderRadius: 10,
@@ -81,5 +81,35 @@ export default StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     zIndex: 22222,
-  }
+  },
+  overlayCont: {
+    top: -10,
+    alignItems: 'center',
+  },
+  promp: {
+    width: '50%',
+    height: 140,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btn: {
+    alignSelf: 'center',
+    marginTop: 20,
+    width: '90%',
+    flexDirection: 'row',
+  },
+  yes: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    height: 40,
+    width: 70,
+    padding: 8,
+    backgroundColor: 'black',
+  },
+
+  str: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });

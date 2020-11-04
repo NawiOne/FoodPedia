@@ -5,6 +5,7 @@ export const getCatAction = 'GET_CATEGORY';
 export const byCategoryAction = 'BY_CATEGORY';
 export const searchMenuAction = 'SEARCH_MENU';
 export const getOrderUserAction = 'GET_ORDER_USER';
+export const getAllOderAction = 'GET_ALL_ORDER';
 export const insertOrderAction = 'INSERT_ORDER';
 export const deleteOrderAction = 'DELETE_ORDER';
 export const deleteMenuAction = 'DELETE_MENU';
@@ -13,6 +14,8 @@ export const logoutAction = 'LOGOUT';
 export const registerAction = 'REGISTER';
 export const editDataMenuAction = 'EDIT_DATA_MENU';
 export const changePending = 'CHANGE_PENDING';
+export const updateProfileAction = 'EDIT_PROFILE';
+export const getDataUserAction = 'GET_DATA_USER';
 // cart
 export const addCartAction = 'ADD_CART';
 export const plusQuantityAction = 'PLUS_QUANTITY';

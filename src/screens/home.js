@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import {CommonActions} from '@react-navigation/native';
 import {getCategoryCreator, getMenuCreator} from '../redux/actions/menu';
 import {createStackNavigator} from '@react-navigation/stack';
+import {getDataUserCreator} from '../redux/actions/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
 import styleLogo from '../style/login';
@@ -23,12 +25,29 @@ const {width} = Dimensions.get('window');
 const height = width * 0.6;
 
 const HomeMenu = ({navigation}) => {
+  const {auth} = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const id = () => {
+    if (auth.data !== null) {
+      return auth.data.id;
+    } else {
+      return null;
+    }
+  };
+
   useEffect(() => {
     dispatch(getCategoryCreator());
     dispatch(getMenuCreator());
   }, [dispatch]);
-
+  useEffect(() => {
+    dispatch(getDataUserCreator(id()));
+  }, []);
+  useEffect(() => {
+    if (auth.isLogin === false) {
+      navigation.navigate('auth');
+    }
+  });
   return (
     <>
       <View style={style.container}>
@@ -64,6 +83,7 @@ const styleHome = StyleSheet.create({
   },
   brandName: {
     marginLeft: 5,
+    fontWeight: 'bold',
   },
   rightIcon: {
     padding: 4,

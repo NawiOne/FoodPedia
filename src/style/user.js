@@ -31,6 +31,9 @@ export default StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
+  email: {
+    color: '#B8B5B3',
+  },
   id: {
     color: 'white',
     fontWeight: 'bold',
