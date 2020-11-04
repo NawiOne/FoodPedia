@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Overlay} from 'react-native-elements';
-import {Text, View, Image, ImageBackground, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Button} from 'react-native';
+import {Text, View, Image, TouchableOpacity, ScrollView, ActivityIndicator, Button} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {plusQuantityCreator, minQuantityCreator, cancelCartCreator, insertOrderCreator} from '../redux/actions/menu';
 import style from '../style/cart';

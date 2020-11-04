@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Splash = ({navigation}) => {
   setTimeout(() => {
-      navigation.replace('auth')
-  }, 4000)
+    navigation.replace('auth');
+  }, 4000);
   return (
     <View style={style.container}>
       <View style={style.content}>

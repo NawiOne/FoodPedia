@@ -1,19 +1,14 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {CommonActions} from '@react-navigation/native';
 import {getCategoryCreator, getMenuCreator} from '../redux/actions/menu';
-import {createStackNavigator} from '@react-navigation/stack';
 import {getDataUserCreator} from '../redux/actions/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
-import styleLogo from '../style/login';
-import logo from '../image/spoon.png';
 import {
   View,
   ScrollView,
   Text,
   TouchableOpacity,
-  Dimensions,
   StyleSheet,
 } from 'react-native';
 import style from '../style/home';
@@ -21,8 +16,6 @@ import style from '../style/home';
 import Carousel from '../components/carousel';
 import ListFood from '../components/listFood';
 
-const {width} = Dimensions.get('window');
-const height = width * 0.6;
 
 const HomeMenu = ({navigation}) => {
   const {auth} = useSelector((state) => state);

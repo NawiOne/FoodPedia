@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Input, ButtonGroup, Overlay} from 'react-native-elements';
+import {Input, Overlay} from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import {editDataCreator, getMenuCreator} from '../redux/actions/menu';
 import {
@@ -26,7 +26,6 @@ const Edit = ({navigation}) => {
   const [price, setPrice] = useState(null);
   const [id_category, setidCategory] = useState(null);
   const [catName, setCatName] = useState(menu.editData.name_category);
-  const [status, setStatus] = useState(null);
   const [press, setPress] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -39,7 +38,6 @@ const Edit = ({navigation}) => {
       {cancelable: false},
     );
   };
-
 
   const handleChoose = () => {
     const options = {

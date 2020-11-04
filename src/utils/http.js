@@ -1,31 +1,31 @@
 import Axios from 'axios';
-import search from '../style/search';
+import {sharedVariable} from '../../sharedVariable';
 
 export const getMenu = () => {
-  return Axios.get('http://52.91.11.189:8000/getalldata?page=1&limit=1000');
+  return Axios.get(`${sharedVariable.url}getalldata?page=1&limit=1000`);
 };
 
 export const getMenuAll = () => {
-  return Axios.get('http://52.91.11.189:8000/getalldata?page=1&limit=6');
+  return Axios.get(`${sharedVariable.url}getalldata?page=1&limit=6`);
 };
 export const getMoreMenu = (page) => {
-  return Axios.get(`http://52.91.11.189:8000/getalldata?page=${page}&limit=6`);
+  return Axios.get(`${sharedVariable.url}getalldata?page=${page}&limit=6`);
 };
 export const getCategory = () => {
-  return Axios.get('http://52.91.11.189:8000/category');
+  return Axios.get(`${sharedVariable.url}category`);
 };
 
 export const searchMenu = (name) => {
-  const url = 'http://52.91.11.189:8000/search';
+  const url = `${sharedVariable.url}search`;
   return Axios.get(`${url}?name=${name}&by=name`);
 };
 
 export const getOrderHistory = (name) => {
-  const url = `http://52.91.11.189:8000/orderuser?name=${name}`;
+  const url = `${sharedVariable.url}orderuser?name=${name}`;
   return Axios.get(url);
 };
 export const getAllOrderHistory = () => {
-  const url = 'http://52.91.11.189:8000/orderuser/all';
+  const url = `${sharedVariable.url}orderuser/all`;
   return Axios.get(url);
 };
 
@@ -36,21 +36,21 @@ export const insertOrder = (date, name, orders, amount) => {
     orders: orders,
     amount: amount,
   };
-  const url = 'http://52.91.11.189:8000/orderuser';
+  const url = `${sharedVariable.url}orderuser`;
   return Axios.post(url, data);
 };
 export const deleteOrder = (id) => {
-  const url = `http://52.91.11.189:8000/orderuser?id=${id}`;
+  const url = `${sharedVariable.url}orderuser?id=${id}`;
   return Axios.delete(url);
 };
 
 export const deleteMenu = (id) => {
-  const url = `http://52.91.11.189:8000/delete?id=${id}`;
+  const url = `${sharedVariable.url}delete?id=${id}`;
   return Axios.delete(url);
 };
 
 export const login = (username, password) => {
-  const url = 'http://52.91.11.189:8000/auth/login';
+  const url = `${sharedVariable.url}auth/login`;
   return Axios.post(url, {
     username: username,
     password: password,
@@ -58,7 +58,7 @@ export const login = (username, password) => {
 };
 
 export const register = (username, password, email) => {
-  const url = 'http://52.91.11.189:8000/auth/register';
+  const url = `${sharedVariable.url}auth/register`;
   return Axios.post(url, {
     username: username,
     password: password,
@@ -93,7 +93,7 @@ export const editMenu = (name, image, price, id_category, id_menu) => {
       accept: 'application/json',
     },
   };
-  const url = 'http://52.91.11.189:8000/update';
+  const url = `${sharedVariable.url}update`;
   return Axios.patch(url, data, config);
 };
 
@@ -121,11 +121,11 @@ export const updateProfile = (username, email, image, id) => {
       accept: 'application/json',
     },
   };
-  const url = 'http://52.91.11.189:8000/auth/update';
+  const url = `${sharedVariable.url}auth/update`;
   return Axios.patch(url, data, config);
 };
 
 export const getDataUser = (id) => {
-  const url = `http://52.91.11.189:8000/auth?id=${id}`;
+  const url = `${sharedVariable.url}auth?id=${id}`;
   return Axios.get(url);
 };

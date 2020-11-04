@@ -9,21 +9,19 @@ import {
   Alert,
 } from 'react-native';
 import {Overlay} from 'react-native-elements';
-import {Input, Button} from 'react-native-elements';
+import {Input} from 'react-native-elements';
 import {useSelector, useDispatch} from 'react-redux';
 import {updateProfileCreator, getDataUserCreator} from '../redux/actions/auth';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import style from '../style/editProfile';
 import imgPlaceHolder from '../image/user.png';
-import {set} from 'react-native-reanimated';
 
 const EditProfile = ({navigation}) => {
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
   const [image, setImage] = useState(null);
 
-  const [status, setStatus] = useState(null);
   const [press, setPress] = useState(false);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);

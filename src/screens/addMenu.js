@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Input, ButtonGroup} from 'react-native-elements';
+import {Input} from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import {Overlay} from 'react-native-elements';
 import Axios from 'axios';
@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import style from '../style/addMenu';
 import Fork from 'react-native-vector-icons/MaterialCommunityIcons';
+import {sharedVariable} from '../../sharedVariable';
 
 const AddMenu = () => {
   // state
@@ -101,7 +102,7 @@ const AddMenu = () => {
           accept: 'application/json',
         },
       };
-      const url = 'http://54.198.163.118:8000/insert';
+      const url = `${sharedVariable.url}insert`;
       Axios.post(url, data, config)
         .then((res) => {
           console.log(res);
