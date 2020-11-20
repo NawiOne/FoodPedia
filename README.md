@@ -38,7 +38,6 @@
     <img width="250" src="assets/image/home.png"> 
     <img width="250" src="assets/image/all-menu.png">
     <img width="250" src="assets/image/order.png">
-    <img width="250" src="assets/image/profile.png">
 </div>
 
 ## Release APK Debug
