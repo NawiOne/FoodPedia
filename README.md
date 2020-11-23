@@ -32,6 +32,9 @@
 2. Type `https://github.com/NawiOne/FoodPedia.git`
 3. Open the folder and type `npm install` for install dependencies
 4. Type `npm run android` for run this app. Make sure your device is connected with debugging mode.
+5. admin access
+  - username: nawijingga
+  - nawijingga123
 
 ## Screenshots
 <div align="center">
